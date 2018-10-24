@@ -1,0 +1,51 @@
+<!DOCTTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Amadon</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>    
+    <body>
+        <div class="container bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand text-white">Amadon</a>
+            </nav>
+            <div class="jumbotron jumbotron-fluid bg-light">
+                <div class="container">
+                    <h2 class="text-center">Amadon store!</h2>
+                    <hr class="my-4">
+                    <table class="table table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <form action="/amadon/buy/" method="post">
+                                    {% csrf_token %}
+                                    <tr>
+                                        <td>{{ item.name }}</td>
+                                        <td>${{ item.price }}</td>
+                                        <td class="row">
+                                            <select class="form-control w-25 mr-3" id="quantity" name="quantity">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                            </select>
+                                            <input type='hidden' name='item_id' value='{{ item.id }}'>
+                                            <button type="submit" class="btn btn-success mb-2">Buy!</button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
